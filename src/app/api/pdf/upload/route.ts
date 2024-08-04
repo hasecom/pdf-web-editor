@@ -24,15 +24,13 @@ const parseForm = (req: IncomingMessage): Promise<{ fields: Fields, files: Files
 export async function POST(request: NextRequest) {
   try {
 		console.error('Invalid fileーーーーーーーーーーーーーーーーーーーー');
-		//console.log(request);
+
 		const formData = await request.formData();
-		console.log(formData)
 		const file = formData.get('file') as File;
 		const arrayBuffer = await file.arrayBuffer();
 		const buffer = new Uint8Array(arrayBuffer);
 		await fs.writeFile(`./public/uploads/${file.name}`, buffer);
-		console.log(arrayBuffer);
-		return new Response(JSON.stringify({ message: "Hello World" }))
+		return new NextResponse(JSON.stringify({ url: `/uploads/${file.name}` }), { status: 200 });
   //   const req = request as unknown as IncomingMessage;
   //   const { fields, files } = await parseForm(req);
     

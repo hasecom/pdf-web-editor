@@ -2,6 +2,7 @@
 import { Grid, Typography } from "@mui/material";
 import FileUpload from "@/components/pdf/fileUploader";
 import { useState } from "react";
+import { Document, Page } from 'react-pdf';
 
 const Home = () => {
 	return (
@@ -17,7 +18,9 @@ const GridParent = () => {
 			<Grid item xs={8}>
 				<Typography variant="h6">
 					<FileUpload onUpload={(url) => setFileUrl(url)} />
-
+					<Document file="/uploads/aaa.pdf">
+						<Page pageNumber={1} />
+					</Document>
 				</Typography>
 			</Grid>
 			<Grid item xs={4} container direction="column" spacing={2}>
