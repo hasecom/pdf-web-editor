@@ -8,6 +8,7 @@
   --background-end-rgb: 255, 255, 255;
 	--font-family:"Archivo Black", "Noto Sans JP";
 	--body-family:"Archivo Black", "Noto Sans JP";
+	--pdf-background-color:"#666666"
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,4 +28,17 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+/* REACT-PDF */
+/* .react-pdf__Page__textContent {
+  display: none;
+}
+.react-pdf__Page__annotations {
+  display: none;
+} */
+.react-pdf__Page {
+	background:var(--pdf-background-color) !important;
+	overflow: hidden;
 }

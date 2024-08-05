@@ -1,18 +1,10 @@
 'use client'
 import { Grid, Typography } from "@mui/material";
 import FileUpload from "@/components/pdf/fileUploader";
-import { useEffect, useState } from "react";
-import { pdfjs, Document, Page } from 'react-pdf';
+import { useState } from "react";
+import PdfViewer from "@/components/pdf/pdfViewer";
 
-// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-// 	'pdfjs-dist/legacy/build/pdf.worker.mjs',
-// 	import.meta.url,
-// ).toString();
-pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
 const Home = () => {
-	useEffect(()=>{
-		
-	},[])
 	return (
 		<main>
 			<GridParent />
@@ -24,15 +16,11 @@ const GridParent = () => {
 
 	return (
 		<Grid container spacing={2}>
-			<Grid item xs={8}>
-				<Typography variant="h6">
+			<Grid item xs={12} md={8}>
 					<FileUpload onUpload={(url) => setFileUrl(url)} />
-					<Document file="/uploads/test.pdf">
-						<Page pageNumber={1} />
-					</Document>
-				</Typography>
+					<PdfViewer />
 			</Grid>
-			<Grid item xs={4} container direction="column" spacing={2}>
+			<Grid item xs={12} md={4} container direction="column" spacing={2}>
 				<Grid item>
 					<Typography variant="h6">Y</Typography>
 				</Grid>
