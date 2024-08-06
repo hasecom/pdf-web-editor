@@ -1,13 +1,17 @@
 import DraggableBox from "./draggable";
 import DropZone from "./droppable";
-
+import {
+  DndContext,
+  useDraggable,
+  useDroppable
+} from '@dnd-kit/core';
 const PdfLayer = () => {
-    return (
-        <>
-            <DraggableBox name="Box 1" />
-            <DraggableBox name="Box 2" />
-            <DropZone />
-        </>
-    )
+	return (
+		<>
+			<DndContext>
+				<DraggableBox />
+			</DndContext>
+		</>
+	)
 }
 export default PdfLayer;
