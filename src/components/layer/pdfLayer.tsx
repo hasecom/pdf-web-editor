@@ -1,16 +1,9 @@
-import DraggableBox from "./draggable";
-import DropZone from "./droppable";
-import {
-  DndContext,
-  useDraggable,
-  useDroppable
-} from '@dnd-kit/core';
+'use client'
+import SortableList from './SortableList';
 const PdfLayer = () => {
 	return (
 		<>
-			<DndContext>
-				<DraggableBox />
-			</DndContext>
+				<SortableList />
 		</>
 	)
 }
