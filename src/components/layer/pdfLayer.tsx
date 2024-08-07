@@ -1,9 +1,9 @@
 'use client'
-import SortableList from './SortableList';
+import SortableList from '@/components/layer/sortableList';
 const PdfLayer = () => {
 	return (
 		<>
-				<SortableList />
+			<SortableList />
 		</>
 	)
 }

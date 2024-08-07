@@ -27,7 +27,7 @@ const SortableItem = ({ id }:any) => {
 
   return (
     <Box ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      aa
+      {id}
     </Box>
   );
 };

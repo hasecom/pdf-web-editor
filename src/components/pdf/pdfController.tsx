@@ -1,12 +1,13 @@
+'use client'
 import { Box, Divider, IconButton, Typography } from "@mui/material";
-import { usePdfContext } from "@/provider/pdfProvider";
+import { usePdfControllerContext } from "@/provider/pdfControllerProvider";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 const PdfController = () => {
-	const { scale, pageNumber, pageLength, handlePrevPage, handleNextPage, handleZoomIn, handleZoomOut } = usePdfContext();
+	const { scale, pageNumber, pageLength, handlePrevPage, handleNextPage, handleZoomIn, handleZoomOut } = usePdfControllerContext();
 
 	/* ページ移動 */
 	const PrevNext = () => (

@@ -1,9 +1,10 @@
+'use client'
 import { pdfjs, Document, Page } from 'react-pdf';
 import { Box } from '@mui/material';
 import PdfController from './pdfController';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
-import { usePdfContext } from '@/provider/pdfProvider';
+import { usePdfControllerContext } from '@/provider/pdfControllerProvider';
 import { useEffect, useState } from 'react';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -12,10 +13,11 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 const PdfViewer = () => {
-	const { pageNumber,scale,handlePageLength } = usePdfContext();
+	const { pageNumber,scale,handlePageLength } = usePdfControllerContext();
 	const [url,setUrl] = useState<string>("/uploads/tes2.pdf");
 	useEffect(()=>{
         pdfjs.getDocument(url).promise.then(pdf => {
+			console.log(pdf);
             handlePageLength(pdf.numPages);
         });
 	},[]);

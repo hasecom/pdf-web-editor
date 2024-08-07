@@ -14,24 +14,23 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import SortableItem from './sortableItem';
+import { usePdfLayerContext } from '@/provider/pdfLayerProvider';
 
 const SortableList = () => {
-  const [items, setItems] = useState(['Item 1', 'Item 2', 'Item 3','Item4']);
+  const { layerItems, setLayerItems } = usePdfLayerContext();
 
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 10 } }),
     useSensor(TouchSensor, { activationConstraint: { distance: 10 } })
   );
 
-  const handleDragEnd = (event:any) => {
+  const handleDragEnd = (event: any) => {
     const { active, over } = event;
-
     if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
-
-        return arrayMove(items, oldIndex, newIndex);
+      setLayerItems((layerItems) => {
+        const oldIndex = layerItems.indexOf(active.id);
+        const newIndex = layerItems.indexOf(over.id);
+        return arrayMove(layerItems, oldIndex, newIndex);
       });
     }
   };
@@ -42,13 +41,12 @@ const SortableList = () => {
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext items={items} strategy={verticalListSortingStrategy}>
-        {items.map((id) => (
+      <SortableContext items={layerItems} strategy={verticalListSortingStrategy}>
+        {layerItems.map((id) => (
           <SortableItem key={id} id={id} />
         ))}
       </SortableContext>
     </DndContext>
   );
 };
-
 export default SortableList;

@@ -1,3 +1,4 @@
+'use client'
 // src/components/FileUpload.tsx
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
