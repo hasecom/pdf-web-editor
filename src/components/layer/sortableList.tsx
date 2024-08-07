@@ -15,6 +15,7 @@ import {
 } from '@dnd-kit/sortable';
 import SortableItem from './sortableItem';
 import { usePdfLayerContext } from '@/provider/pdfLayerProvider';
+import { Box } from '@mui/material';
 
 const SortableList = () => {
   const { layerItems, setLayerItems } = usePdfLayerContext();
@@ -41,11 +42,13 @@ const SortableList = () => {
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
+			 <Box style={{ backgroundColor: '#333639', padding: '20px' }}>
       <SortableContext items={layerItems} strategy={verticalListSortingStrategy}>
         {layerItems.map((id) => (
           <SortableItem key={id} id={id} />
         ))}
       </SortableContext>
+			</Box>
     </DndContext>
   );
 };
