@@ -11,6 +11,7 @@ export interface pdfTextLinkType extends objectType {
 	fontWeight:number;
 	template:Object;
   }
+export type pdfWrapType = pdfTextLinkType;
 
 export const pdf_text_link:pdfTextLinkType = {
 	id:1,

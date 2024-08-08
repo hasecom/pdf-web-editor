@@ -13,7 +13,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import SortableItem from './sortableItem';
+import SortableItem from './pdfLayerSortableItem';
 import { usePdfLayerContext } from '@/provider/pdfLayerProvider';
 import { Box } from '@mui/material';
 

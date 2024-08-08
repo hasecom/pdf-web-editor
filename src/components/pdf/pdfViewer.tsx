@@ -75,16 +75,18 @@ const PdfViewer = () => {
 			}}>
 				<Document file={url}>
 					<Page pageNumber={pageNumber} scale={scale} >
-						<PdfOverlapView />
+						
 					</Page>
 				</Document>
 			</Box>
+			
 			<Button variant="contained" color="primary" href={downloadUrl} download="edited.pdf">
 				Download Edited PDF
 			</Button>
 			<Button variant="contained" color="primary" onClick={aab}>
 				aaaasssssssssssssssssssssss
 			</Button>
+			<PdfOverlapView />
 		</Box>
 
 	);
