@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material"
 
-export const pdf_text = () => {
+export const pdf_text = () => (
 	<>
 		<TextField
 			sx={{
@@ -15,4 +15,4 @@ export const pdf_text = () => {
 			value={"aakkkkkkkkkkkkkkkkkks"}
 		/>
 	</>
-}
+)

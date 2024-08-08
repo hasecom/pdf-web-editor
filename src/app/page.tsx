@@ -1,6 +1,7 @@
 'use client'
 import { Grid, Typography } from "@mui/material";
 import { PdfControllerProvider } from "@/provider/pdfControllerProvider";
+import { PdfObjectProvider } from "@/provider/pdfObjectProvider";
 import { PdfLayerProvider } from "@/provider/pdfLayerProvider";
 import FileUpload from "@/components/pdf/fileUploader";
 import { useState } from "react";
@@ -9,11 +10,13 @@ import PdfLayer from "@/components/layer/pdfLayer";
 const Home = () => {
 	return (
 		<PdfControllerProvider>
-			<PdfLayerProvider>
-				<main>
-					<GridParent />
-				</main>
-			</PdfLayerProvider>
+			<PdfObjectProvider>
+				<PdfLayerProvider>
+					<main>
+						<GridParent />
+					</main>
+				</PdfLayerProvider>
+			</PdfObjectProvider>
 		</PdfControllerProvider>
 	);
 }

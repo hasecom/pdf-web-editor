@@ -1,15 +1,17 @@
 'use client'
 import { pdfjs, Document, Page } from 'react-pdf';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button} from '@mui/material';
 import PdfController from './pdfController';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import { usePdfControllerContext } from '@/provider/pdfControllerProvider';
 import { useEffect, useState } from 'react';
 import { usePdfLayerContext } from '@/provider/pdfLayerProvider';
-
+import PdfOverlapView from '../pdfOverlap/pdfOverlapView';
 import { PDFDocument, rgb } from 'pdf-lib'; /* XXX */
-
+import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
+import { pdf_text_link } from '../pdfOverlap/pdfObjectLink';
+import React from 'react';
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 	'pdfjs-dist/legacy/build/pdf.worker.mjs',
 	import.meta.url,
@@ -18,6 +20,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 const PdfViewer = () => {
 	const { addLayerItem } = usePdfLayerContext();
 	const { pageNumber, scale, handlePageLength } = usePdfControllerContext();
+	const { pdfObject, addPdfObject } = usePdfObjectContext();
 	const [url, setUrl] = useState<string>("/uploads/tes2.pdf");
 	const [downloadUrl, setDownloadUrl] = useState<string>("");
 	useEffect(() => {
@@ -51,7 +54,12 @@ const PdfViewer = () => {
 
 		loadAndEditPdf();
 	}, [url]);
-
+	const aab = () => {
+		console.log('Button clicked');
+		addPdfObject(pdf_text_link);
+		console.log(pdfObject);
+		console.log(pdfObject.length);
+	};
 	return (
 
 		<Box sx={{
@@ -67,12 +75,15 @@ const PdfViewer = () => {
 			}}>
 				<Document file={url}>
 					<Page pageNumber={pageNumber} scale={scale} >
-						
+						<PdfOverlapView />
 					</Page>
 				</Document>
 			</Box>
 			<Button variant="contained" color="primary" href={downloadUrl} download="edited.pdf">
 				Download Edited PDF
+			</Button>
+			<Button variant="contained" color="primary" onClick={aab}>
+				aaaasssssssssssssssssssssss
 			</Button>
 		</Box>
 
