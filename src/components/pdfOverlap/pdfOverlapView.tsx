@@ -1,5 +1,5 @@
 'use client'
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { usePdfObjectContext } from "@/provider/pdfObjectProvider";
 import { useSortable } from '@dnd-kit/sortable';
 import { closestCenter, DndContext } from '@dnd-kit/core';
@@ -19,8 +19,6 @@ const PdfOverlapView = () => {
 	
   const handleDragEnd = (event: any) => {
     const { active, delta } = event;
-
-    // 要素の位置を更新
     setItems(prevItems =>
       prevItems.map(item =>
         item.id === active.id
@@ -37,9 +35,19 @@ const PdfOverlapView = () => {
 	return (
 		<> <Box sx={{ width: '100px', height: '100px', position: 'relative' }}>
 		  <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-			{pdfObject.map((item: any, index: any) => (
-				<DraggableItem key={index}  id={String(index)}>
-					<item.template />
+			{/* {pdfObject.map((item: any, index: any) => ( */}
+			{items.map(item => (
+				   <DraggableItem key={item.id} id={item.id} x={item.x} y={item.y}>
+					            <Typography
+              sx={{
+                position: 'absolute',
+                color: 'black',
+                fontSize: 30,
+                zIndex: 30,
+              }}
+            >
+              {item.id}
+            </Typography>
 				</DraggableItem>
 			))}
 			</DndContext>
