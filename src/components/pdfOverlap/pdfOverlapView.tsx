@@ -2,80 +2,93 @@
 import { Box, Typography } from "@mui/material";
 import { usePdfObjectContext } from "@/provider/pdfObjectProvider";
 import { useSortable } from '@dnd-kit/sortable';
-import { closestCenter, DndContext } from '@dnd-kit/core';
+import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/core';
 import { useState } from "react";
 
+import { CSS } from '@dnd-kit/utilities';
+
 interface DraggableProps {
-	id: string;
-	children: React.ReactNode;
+    id: string;
+    children: React.ReactNode;
 }
+const DroppableArea = ({ id }: { id: string }) => {
+    const { setNodeRef, isOver } = useDroppable({ id });
+
+    const style: React.CSSProperties = {
+        top: 0,
+        width: 'inherit',
+        height: 'inherit',
+        border: '2px dashed black',
+        position: 'absolute',
+        zIndex: 1000
+    };
+
+    return <div ref={setNodeRef} style={style} />;
+};
 
 const PdfOverlapView = () => {
-	const { pdfObject } = usePdfObjectContext();
-  const [items, setItems] = useState([
-    { id: '0', x: 30, y: 30 },
-    { id: '1', x: 100, y: 100 },
-  ]);
-	
-  const handleDragEnd = (event: any) => {
-    const { active, delta } = event;
-    setItems(prevItems =>
-      prevItems.map(item =>
-        item.id === active.id
-          ? {
-              ...item,
-              x: item.x + delta.x,
-              y: item.y + delta.y,
-            }
-          : item
-      )
-    );
-  };
+    const { pdfObject } = usePdfObjectContext();
+    const [items, setItems] = useState([
+        { id: '0', x: 30, y: 30 },
+        { id: '1', x: 100, y: 100 },
+    ]);
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
+        if (over) {
+            setItems((items) =>
+                items.map((item) =>
+                    item.id === active.id
+                        ? {
+                            ...item,
+                            x: event.delta.x + item.x,
+                            y: event.delta.y + item.y,
+                        }
+                        : item
+                )
+            );
+        }
+    };
 
-	return (
-		<> <Box sx={{ width: '100px', height: '100px', position: 'relative' }}>
-		  <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-			{/* {pdfObject.map((item: any, index: any) => ( */}
-			{items.map(item => (
-				   <DraggableItem key={item.id} id={item.id} x={item.x} y={item.y}>
-					            <Typography
-              sx={{
-                position: 'absolute',
-                color: 'black',
-                fontSize: 30,
-                zIndex: 30,
-              }}
-            >
-              {item.id}
-            </Typography>
-				</DraggableItem>
-			))}
-			</DndContext>
-			</Box>
-		</>
-	)
+    return (
+        <Box sx={{        width: 'inherit',
+            height: 'inherit',}}>
+            <DndContext onDragEnd={handleDragEnd}>
+                <DroppableArea id="droppable" />
+                {/* {pdfObject.map((item: any, index: any) => ( */}
+                {items.map(item => (
+                    <DraggableItem key={item.id} id={item.id} style={{ left: item.x, top: item.y }} />
+                ))}
+            </DndContext>
+
+        </Box>
+    )
 }
 export default PdfOverlapView;
 
-interface DraggableItemProps extends DraggableProps {
-  x: number;
-  y: number;
-}
+const DraggableItem = ({ id, style }: { id: string; style: React.CSSProperties }) => {
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+        id,
+    });
 
-const DraggableItem: React.FC<DraggableItemProps> = ({ id,x, y, children }) => {
-	const { attributes, listeners, setNodeRef, transform } = useSortable({ id });
+    const draggableStyle: React.CSSProperties = {
+        cursor: 'move',
+        border: '1px solid black',
+        width: '50px',
+        height: '50px',
+        position: 'absolute',
+        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+        zIndex: 1000,
+        ...style,
+    };
 
-	const style: React.CSSProperties = {
-    transform: `translate3d(${x + (transform?.x ?? 0)}px, ${y + (transform?.y ?? 0)}px, 0)`,
-    cursor: 'move',
-    position: 'absolute',
-    zIndex: 1000,
-  };
-
-
-	return (
-		<div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-			{children}
-		</div>
-	);
+    return (
+        <div
+            ref={setNodeRef}
+            style={draggableStyle}
+            {...listeners}
+            {...attributes}
+        >
+            {id}
+        </div>
+    );
 };

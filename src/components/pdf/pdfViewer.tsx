@@ -1,6 +1,6 @@
 'use client'
 import { pdfjs, Document, Page } from 'react-pdf';
-import { Box, Button} from '@mui/material';
+import { Box, Button } from '@mui/material';
 import PdfController from './pdfController';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -37,7 +37,8 @@ const PdfViewer = () => {
 			const pages = pdfDoc.getPages();
 			const firstPage = pages[0];
 			const { width, height } = firstPage.getSize();
-
+			console.log(width);
+			console.log(height);
 			// ページの下部にテキストを描画
 			firstPage.drawText('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', {
 				x: 50,
@@ -75,18 +76,19 @@ const PdfViewer = () => {
 			}}>
 				<Document file={url}>
 					<Page pageNumber={pageNumber} scale={scale} >
-						
+						<PdfOverlapView />
 					</Page>
 				</Document>
+
 			</Box>
-			
+
 			<Button variant="contained" color="primary" href={downloadUrl} download="edited.pdf">
 				Download Edited PDF
 			</Button>
 			<Button variant="contained" color="primary" onClick={aab}>
 				aaaasssssssssssssssssssssss
 			</Button>
-			<PdfOverlapView />
+
 		</Box>
 
 	);
