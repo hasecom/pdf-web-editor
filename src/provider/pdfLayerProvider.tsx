@@ -12,6 +12,14 @@ type ProviderProps = {
 };
 
 const Context = createContext<ContextType | undefined>(undefined);
+
+/**
+ * PDFレイヤーのプロバイダー
+ *
+ * @param {{ children: any; }} param0
+ * @param {*} param0.children
+ * @returns {*}
+ */
 const PdfLayerProvider: React.FC<ProviderProps> = ({ children }) => {
   const [layerItems, setLayerItems] = useState<string[]>([]);
   
