@@ -15,7 +15,7 @@ const usePdfObjectStatus = () => {
 		pdfObjectItem
 	  ]);
 	};
-	return {pdfObject,addPdfObject};
+	return {pdfObject,addPdfObject,setPdfObject};
 };
 
 export default usePdfObjectStatus;

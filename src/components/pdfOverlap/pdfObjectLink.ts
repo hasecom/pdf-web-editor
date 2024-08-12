@@ -9,7 +9,9 @@ interface objectType {
 export interface pdfTextLinkType extends objectType {
 	fontSize: number;
 	fontWeight:number;
-	template:Object;
+	x:number,
+	y:number,
+	template:React.FC;
   }
 export type pdfWrapType = pdfTextLinkType;
 
@@ -18,5 +20,7 @@ export const pdf_text_link:pdfTextLinkType = {
 	class:pdfObjectClass.pdf_text,
 	fontSize:0,
 	fontWeight:0,
+	x:0,
+	y:0,
 	template:pdf_text
 };

@@ -3,14 +3,15 @@ import { Box, Button, ButtonGroup } from '@mui/material';
 import { useState } from 'react';
 import LayerMenu from '../menu/layerMenu';
 const PdfLayerMenu = () => {
+	
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+	const open = Boolean(anchorEl);
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	return (
 		<>
@@ -22,20 +23,20 @@ const PdfLayerMenu = () => {
 				}}
 			>
 
-				 <Button 
-            variant="contained" 
-            color="primary"
-            startIcon={<AddIcon />}
+				<Button
+					variant="contained"
+					color="primary"
+					startIcon={<AddIcon />}
 
-						id="demo-positioned-button"
-						aria-controls={open ? 'demo-positioned-menu' : undefined}
-						aria-haspopup="true"
-						aria-expanded={open ? 'true' : undefined}
-						onClick={handleClick}
-        >レイヤーを追加する</Button>
+					id="layer-menu-button"
+					aria-controls={open ? 'layer-menu' : undefined}
+					aria-haspopup="true"
+					aria-expanded={open ? 'true' : undefined}
+					onClick={handleClick}
+				>レイヤーを追加する</Button>
 
 			</Box>
-			<LayerMenu handleClose={handleClose} anchorEl={anchorEl}  />
+			<LayerMenu handleClose={handleClose} anchorEl={anchorEl} />
 		</>
 	)
 }
