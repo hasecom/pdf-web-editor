@@ -5,7 +5,6 @@ interface objectType {
 	id: number;
 	class: string;
   }
-  
 export interface pdfTextLinkType extends objectType {
 	fontSize: number;
 	fontWeight:number;
@@ -15,12 +14,14 @@ export interface pdfTextLinkType extends objectType {
   }
 export type pdfWrapType = pdfTextLinkType;
 
-export const pdf_text_link:pdfTextLinkType = {
-	id:1,
+export const pdf_text_link = ():pdfTextLinkType => {
+	return {
+	id:Date.now(),
 	class:pdfObjectClass.pdf_text,
 	fontSize:0,
 	fontWeight:0,
 	x:0,
 	y:0,
 	template:pdf_text
+	}
 };

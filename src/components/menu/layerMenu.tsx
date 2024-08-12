@@ -7,6 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
+import { usePdfLayerContext } from '@/provider/pdfLayerProvider';
 import { pdf_text_link } from '../pdfOverlap/pdfObjectLink';
 import { NextPage } from 'next';
 import { Menu } from '@mui/material';
@@ -47,9 +48,11 @@ const MenuWrap: NextPage<MenuWrapProps> = ({ children, layerMenuProps }) => {
 };
 const MenuChild:NextPage<MenuWrapProps>  = ({layerMenuProps}) => {
 	const {addPdfObject} = usePdfObjectContext();
+	const {addLayerItem} = usePdfLayerContext();
 	const ClickAddText = () => {
-		console.log("clicked")
-		addPdfObject(pdf_text_link);
+		const object =  pdf_text_link();
+		addPdfObject(object);//PDFにoverlapするオブジェクトを追加。
+		addLayerItem((object.id).toString())
 		layerMenuProps.handleClose();
 	}
 	const ClickAddPDF = () => {
@@ -57,11 +60,11 @@ const MenuChild:NextPage<MenuWrapProps>  = ({layerMenuProps}) => {
 	}
 	return (
 		<>
-			<MenuItem>
+			<MenuItem onClick={ClickAddText}>
 				<ListItemIcon>
 					<TextFieldsIcon fontSize="small" />
 				</ListItemIcon>
-				<ListItemText onClick={ClickAddText}>Text</ListItemText>
+				<ListItemText>Text</ListItemText>
 				{/* <Typography variant="body2" color="text.secondary">
 					⌘X
 				</Typography> */}
