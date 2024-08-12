@@ -16,10 +16,11 @@ import {
 import SortableItem from './pdfLayerSortableItem';
 import { usePdfLayerContext } from '@/provider/pdfLayerProvider';
 import { Box } from '@mui/material';
+import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
 
 const SortableList = () => {
 	const { layerItems, setLayerItems } = usePdfLayerContext();
-
+	const { pdfObject } = usePdfObjectContext();
 	const sensors = useSensors(
 		useSensor(MouseSensor, { activationConstraint: { distance: 10 } }),
 		useSensor(TouchSensor, { activationConstraint: { distance: 10 } })

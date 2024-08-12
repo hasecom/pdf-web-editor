@@ -17,7 +17,7 @@ export type pdfWrapType = pdfTextLinkType;
 export const pdf_text_link = ():pdfTextLinkType => {
 	return {
 	id:Date.now(),
-	class:pdfObjectClass.pdf_text,
+	class:pdfObjectClass.text,
 	fontSize:0,
 	fontWeight:0,
 	x:0,
