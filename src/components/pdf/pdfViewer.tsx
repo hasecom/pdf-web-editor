@@ -6,7 +6,6 @@ import PdfController from './pdfController';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import { usePdfControllerContext } from '@/provider/pdfControllerProvider';
-import { usePdfLayerContext } from '@/provider/pdfLayerProvider';
 import PdfOverlapView from '../pdfOverlap/pdfOverlapView';
 import { PDFDocument, rgb } from 'pdf-lib'; /* XXX */
 import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
@@ -15,9 +14,8 @@ import usePdf from '@/hooks/usePdfObject';
 import useCanvasSize from '@/hooks/useCanvasSize';
 
 const PdfViewer = () => {
-	const { addLayerItem } = usePdfLayerContext();
 	const { pageNumber, scale, handlePageLength } = usePdfControllerContext();
-	const { pdfObject, addPdfObject } = usePdfObjectContext();
+	const { addPdfObject } = usePdfObjectContext();
 	const { pdfJsObject } = usePdf();
 	
 	const [url, setUrl] = useState<string>("/uploads/tes2.pdf");
@@ -64,8 +62,6 @@ const PdfViewer = () => {
 	}, [url]);
 	const aab = () => {
 		console.log('Button clicked');
-		addPdfObject(pdf_text_link);
-
 	};
 	return (
 

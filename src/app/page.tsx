@@ -2,7 +2,7 @@
 import { Grid, Typography } from "@mui/material";
 import { PdfControllerProvider } from "@/provider/pdfControllerProvider";
 import { PdfObjectProvider } from "@/provider/pdfObjectProvider";
-import { PdfLayerProvider } from "@/provider/pdfLayerProvider";
+import { PdfLayerProvider } from "@/provider/_pdfLayerProvider";
 import FileUpload from "@/components/pdf/fileUploader";
 import { useState } from "react";
 import PdfViewer from "@/components/pdf/pdfViewer";

@@ -1,19 +1,23 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import {
   useSortable
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Box } from '@mui/material';
-
-const SortableItem = ({ id }:any) => {
+import { pdfWrapType } from '../pdfOverlap/pdfObjectLink';
+import { NextPage } from 'next';
+type SortableItemProps = {
+  item: pdfWrapType
+}
+const SortableItem: NextPage<SortableItemProps> = ({ item }) => {
   const {
     attributes,
     listeners,
     setNodeRef,
     transform,
     transition,
-  } = useSortable({ id });
+  } = useSortable({ id: item.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -27,7 +31,7 @@ const SortableItem = ({ id }:any) => {
 
   return (
     <Box ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {id}
+      {item.class}:{item.text}
     </Box>
   );
 };

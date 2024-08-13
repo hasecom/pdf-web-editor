@@ -4,6 +4,7 @@ import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/c
 import { usePdfObjectContext } from "@/provider/pdfObjectProvider";
 import { pdfTextLinkType, pdfWrapType } from "./pdfObjectLink";
 import { NextPage } from "next";
+import { MouseSensor, TouchSensor} from "@/dnd-kit/customSensors";
 
 const DroppableArea = ({ id, canvasSize }: { id: string, canvasSize: { width: number, height: number } }) => {
 	const { setNodeRef, isOver } = useDroppable({ id });
@@ -65,7 +66,7 @@ const DraggableItem = ({ item,style }: { item:pdfTextLinkType, style: React.CSSP
 
 	const draggableStyle: React.CSSProperties = {
 		cursor: 'move',
-		width: '100px',
+		width: '190px',
 		height: '100px',
 		position: 'absolute',
 		transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
@@ -79,8 +80,9 @@ const DraggableItem = ({ item,style }: { item:pdfTextLinkType, style: React.CSSP
 			style={draggableStyle}
 			{...listeners}
 			{...attributes}
+			data-no-dnd="true"
 		>
-			<item.template />
+			{item.template}
 		</Box>
 	);
 };

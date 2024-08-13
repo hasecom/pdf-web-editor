@@ -14,13 +14,11 @@ import {
 	verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import SortableItem from './pdfLayerSortableItem';
-import { usePdfLayerContext } from '@/provider/pdfLayerProvider';
 import { Box } from '@mui/material';
 import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
 
 const SortableList = () => {
-	const { layerItems, setLayerItems } = usePdfLayerContext();
-	const { pdfObject } = usePdfObjectContext();
+	const { pdfObject, setPdfObject } = usePdfObjectContext();
 	const sensors = useSensors(
 		useSensor(MouseSensor, { activationConstraint: { distance: 10 } }),
 		useSensor(TouchSensor, { activationConstraint: { distance: 10 } })
@@ -29,10 +27,19 @@ const SortableList = () => {
 	const handleDragEnd = (event: any) => {
 		const { active, over } = event;
 		if (active.id !== over.id) {
-			setLayerItems((layerItems) => {
-				const oldIndex = layerItems.indexOf(active.id);
-				const newIndex = layerItems.indexOf(over.id);
-				return arrayMove(layerItems, oldIndex, newIndex);
+			const activeId = active.id;
+			const overId = over.id;
+
+			const oldIndex = pdfObject.findIndex(item => item.id === activeId);
+			const newIndex = pdfObject.findIndex(item => item.id === overId);
+
+			if (oldIndex === -1 || newIndex === -1) {
+				console.error('Invalid drag and drop indices');
+				return;
+			}
+
+			setPdfObject(prev => {
+				return arrayMove(prev, oldIndex, newIndex);
 			});
 		}
 	};
@@ -44,9 +51,9 @@ const SortableList = () => {
 			onDragEnd={handleDragEnd}
 		>
 			<Box style={{ backgroundColor: '#333639', padding: '20px' }}>
-				<SortableContext items={layerItems} strategy={verticalListSortingStrategy}>
-					{layerItems.map((id) => (
-						<SortableItem key={id} id={id} />
+				<SortableContext items={pdfObject} strategy={verticalListSortingStrategy}>
+					{pdfObject.map((item) => (
+						<SortableItem key={item.id} item={item} />
 					))}
 				</SortableContext>
 			</Box>
