@@ -1,10 +1,10 @@
 'use client'
 import { Box } from "@mui/material";
-import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/core';
+import { DndContext, useDraggable, useDroppable, DragEndEvent, useSensors, useSensor, PointerSensor, KeyboardSensor, DragStartEvent, MouseSensor } from '@dnd-kit/core';
 import { usePdfObjectContext } from "@/provider/pdfObjectProvider";
 import { pdfTextLinkType, pdfWrapType } from "./pdfObjectLink";
 import { NextPage } from "next";
-import { MouseSensor, TouchSensor} from "@/dnd-kit/customSensors";
+import { useState } from "react";
 
 const DroppableArea = ({ id, canvasSize }: { id: string, canvasSize: { width: number, height: number } }) => {
 	const { setNodeRef, isOver } = useDroppable({ id });
@@ -25,6 +25,23 @@ type PdfOverlapViewProps = {
 }
 const PdfOverlapView: NextPage<PdfOverlapViewProps> = ({ canvasSize }) => {
 	const { pdfObject, setPdfObject } = usePdfObjectContext();
+	const [isTextInputActive, setIsTextInputActive] = useState(false);
+
+	
+	const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+    const id = active.id.toString();
+		console.log(active)
+		console.log(id)
+  };
+	const sensors = useSensors(
+		useSensor(MouseSensor, {
+			// 条件に応じてセンサーを動的に変更
+			// 例えば、ドラッグ開始条件に応じてセンサーを無効化する
+			//
+		}),
+		useSensor(KeyboardSensor)
+	);
 
 	const handleDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
@@ -48,7 +65,10 @@ const PdfOverlapView: NextPage<PdfOverlapViewProps> = ({ canvasSize }) => {
 			width: canvasSize.width,
 			height: canvasSize.height,
 		}}>
-			<DndContext onDragEnd={handleDragEnd}>
+			<DndContext
+			sensors={sensors}
+			  onDragStart={handleDragStart}
+				onDragEnd={handleDragEnd}>
 				<DroppableArea id="droppable" canvasSize={canvasSize} />
 				{pdfObject.map((item: pdfWrapType, index: any) => (
 					<DraggableItem key={item.id} item={item} style={{ left: item.x, top: item.y }} />
@@ -59,9 +79,9 @@ const PdfOverlapView: NextPage<PdfOverlapViewProps> = ({ canvasSize }) => {
 }
 export default PdfOverlapView;
 
-const DraggableItem = ({ item,style }: { item:pdfTextLinkType, style: React.CSSProperties }) => {
+const DraggableItem = ({ item, style }: { item: pdfTextLinkType, style: React.CSSProperties }) => {
 	const { attributes, listeners, setNodeRef, transform } = useDraggable({
-		id:item.id
+		id: item.id
 	});
 
 	const draggableStyle: React.CSSProperties = {
@@ -80,7 +100,6 @@ const DraggableItem = ({ item,style }: { item:pdfTextLinkType, style: React.CSSP
 			style={draggableStyle}
 			{...listeners}
 			{...attributes}
-			data-no-dnd="true"
 		>
 			{item.template}
 		</Box>
