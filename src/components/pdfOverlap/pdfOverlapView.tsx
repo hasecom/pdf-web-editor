@@ -34,14 +34,15 @@ const PdfOverlapView: NextPage<PdfOverlapViewProps> = ({ canvasSize }) => {
 		console.log(active)
 		console.log(id)
   };
-	const sensors = useSensors(
-		useSensor(MouseSensor, {
-			// 条件に応じてセンサーを動的に変更
-			// 例えば、ドラッグ開始条件に応じてセンサーを無効化する
-			//
-		}),
-		useSensor(KeyboardSensor)
-	);
+    const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10
+    },
+  });
+  
+  const sensors = useSensors(
+    mouseSensor,
+  );
 
 	const handleDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
