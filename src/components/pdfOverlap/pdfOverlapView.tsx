@@ -25,24 +25,16 @@ type PdfOverlapViewProps = {
 }
 const PdfOverlapView: NextPage<PdfOverlapViewProps> = ({ canvasSize }) => {
 	const { pdfObject, setPdfObject } = usePdfObjectContext();
-	const [isTextInputActive, setIsTextInputActive] = useState(false);
 
-	
-	const handleDragStart = (event: DragStartEvent) => {
-    const { active } = event;
-    const id = active.id.toString();
-		console.log(active)
-		console.log(id)
-  };
-    const mouseSensor = useSensor(MouseSensor, {
-    activationConstraint: {
-      distance: 10
-    },
-  });
-  
-  const sensors = useSensors(
-    mouseSensor,
-  );
+	const mouseSensor = useSensor(MouseSensor, {
+		activationConstraint: {
+			distance: 10
+		},
+	});
+
+	const sensors = useSensors(
+		mouseSensor,
+	);
 
 	const handleDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
@@ -67,8 +59,7 @@ const PdfOverlapView: NextPage<PdfOverlapViewProps> = ({ canvasSize }) => {
 			height: canvasSize.height,
 		}}>
 			<DndContext
-			sensors={sensors}
-			  onDragStart={handleDragStart}
+				sensors={sensors}
 				onDragEnd={handleDragEnd}>
 				<DroppableArea id="droppable" canvasSize={canvasSize} />
 				{pdfObject.map((item: pdfWrapType, index: any) => (

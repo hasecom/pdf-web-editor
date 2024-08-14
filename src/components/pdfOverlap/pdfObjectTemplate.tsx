@@ -18,6 +18,10 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId }) => {
 			setText(targetObject.text);
 		}
 	}, [targetObject]);
+	const handleContextMenu = (event: MouseEvent) => {
+    event.preventDefault();
+		console.log("helloo")
+  };
 	const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setText(e.target.value);
 		const newText = e.target.value;
@@ -38,6 +42,7 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId }) => {
 					fontSize: 30,
 					zIndex: 30
 				}}
+				onContextMenu={handleContextMenu} 
 				variant="standard"
 				value={text}
 				onChange={handleTextChange}
