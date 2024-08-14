@@ -42,7 +42,7 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId }) => {
 					fontSize: 30,
 					zIndex: 30
 				}}
-				onContextMenu={handleContextMenu} 
+				// onContextMenu={handleContextMenu} 
 				variant="standard"
 				value={text}
 				onChange={handleTextChange}
