@@ -1,6 +1,6 @@
 
 import  { useState } from 'react';
-import { pdfWrapType } from '@/components/pdfOverlap/pdfObjectLink';
+import { pdfWrapType } from  "@/constant/pdfObjectConstant";
 
 /**
  * PDF描画画面で使用されているオブジェクトのステートを管理します。

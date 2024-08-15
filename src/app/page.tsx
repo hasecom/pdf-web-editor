@@ -2,20 +2,18 @@
 import { Grid, Typography } from "@mui/material";
 import { PdfControllerProvider } from "@/provider/pdfControllerProvider";
 import { PdfObjectProvider } from "@/provider/pdfObjectProvider";
-import { PdfLayerProvider } from "@/provider/_pdfLayerProvider";
 import FileUpload from "@/components/pdf/fileUploader";
 import { useState } from "react";
 import PdfViewer from "@/components/pdf/pdfViewer";
 import PdfLayer from "@/components/layer/pdfLayer";
+import EditorView from "@/components/editor/editorView";
 const Home = () => {
 	return (
 		<PdfControllerProvider>
 			<PdfObjectProvider>
-				<PdfLayerProvider>
 					<main>
 						<GridParent />
 					</main>
-				</PdfLayerProvider>
 			</PdfObjectProvider>
 		</PdfControllerProvider>
 	);
@@ -34,7 +32,7 @@ const GridParent = () => {
 					<PdfLayer />
 				</Grid>
 				<Grid item>
-					<Typography variant="h6">Z</Typography>
+					<EditorView />
 				</Grid>
 			</Grid>
 		</Grid>

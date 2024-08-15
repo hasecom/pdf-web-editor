@@ -45,10 +45,10 @@ const MenuWrap: NextPage<MenuWrapProps> = ({ children, layerMenuProps }) => {
 		</Paper>
 	);
 };
-const MenuChild:NextPage<MenuWrapProps>  = ({layerMenuProps}) => {
-	const {addPdfObject} = usePdfObjectContext();
+const MenuChild: NextPage<MenuWrapProps> = ({ layerMenuProps }) => {
+	const { addPdfObject,pdfTextInit } = usePdfObjectContext();
 	const ClickAddText = () => {
-		const object =  pdf_text_link();
+		const object = pdf_text_link(pdfTextInit);
 		addPdfObject(object);//PDFにoverlapするオブジェクトを追加。
 		layerMenuProps.handleClose();
 	}

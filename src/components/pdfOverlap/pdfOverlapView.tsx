@@ -2,9 +2,8 @@
 import { Box } from "@mui/material";
 import { DndContext, useDraggable, useDroppable, DragEndEvent, useSensors, useSensor, PointerSensor, KeyboardSensor, DragStartEvent, MouseSensor } from '@dnd-kit/core';
 import { usePdfObjectContext } from "@/provider/pdfObjectProvider";
-import { pdfTextLinkType, pdfWrapType } from "./pdfObjectLink";
+import { pdfTextLinkType, pdfWrapType } from "@/constant/pdfObjectConstant";
 import { NextPage } from "next";
-import { useState } from "react";
 
 const DroppableArea = ({ id, canvasSize }: { id: string, canvasSize: { width: number, height: number } }) => {
 	const { setNodeRef, isOver } = useDroppable({ id });
@@ -78,7 +77,7 @@ const DraggableItem = ({ item, style }: { item: pdfTextLinkType, style: React.CS
 
 	const draggableStyle: React.CSSProperties = {
 		cursor: 'move',
-		width: '190px',
+		width:'100px',
 		height: '100px',
 		position: 'absolute',
 		transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,

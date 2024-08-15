@@ -1,8 +1,8 @@
 'use client'
 import React, { createContext, useContext, ReactNode } from 'react';
 import usePdfObjectStatus from '@/hooks/usePdfObjectStatus';
-import { pdfWrapType } from '@/components/pdfOverlap/pdfObjectLink';
-
+import { pdfWrapType,pdfTextLinkInitType } from '@/constant/pdfObjectConstant'
+import usePdfTextStatus from "@/hooks/usePdfTextStyle";
 
 type ProviderProps = {
   children: ReactNode;
@@ -11,7 +11,8 @@ type ProviderProps = {
 interface ContextType{
   pdfObject:pdfWrapType[],
   addPdfObject:(pdfObjectItem:pdfWrapType)=>void,
-	setPdfObject:React.Dispatch<React.SetStateAction<pdfWrapType[]>>
+	setPdfObject:React.Dispatch<React.SetStateAction<pdfWrapType[]>>,
+  pdfTextInit:pdfTextLinkInitType
 }
 
 const Context = createContext<ContextType | undefined>(undefined);
@@ -25,11 +26,12 @@ const Context = createContext<ContextType | undefined>(undefined);
  */
 const PdfObjectProvider: React.FC<ProviderProps> = ({ children }) => {
   const { pdfObject,addPdfObject,setPdfObject } = usePdfObjectStatus();
-
+  const { pdfTextInit } = usePdfTextStatus();
   const contextValue: ContextType = {
     pdfObject:pdfObject,
     addPdfObject:addPdfObject,
-		setPdfObject:setPdfObject
+		setPdfObject:setPdfObject,
+    pdfTextInit:pdfTextInit
   };
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
