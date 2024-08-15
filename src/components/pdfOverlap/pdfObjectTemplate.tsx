@@ -1,18 +1,36 @@
-import { TextField } from "@mui/material"
+import { Box, TextField } from "@mui/material"
 import { NextPage } from "next"
 import { usePdfObjectContext } from "@/provider/pdfObjectProvider"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import PdfTextContextMenu from "../menu/pdfTextContextMenu"
 import { pdfTextLinkInitType } from "@/constant/pdfObjectConstant"
 type PdfTextProps = {
 	fileId: number,
-	pdfTextInit:pdfTextLinkInitType
+	pdfTextInit: pdfTextLinkInitType
 }
-export const PdfText: NextPage<PdfTextProps> = ({ fileId,pdfTextInit }) => {
+export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 	const { pdfObject, setPdfObject } = usePdfObjectContext();
 	const targetObject = pdfObject.find((obj) => obj.id === fileId);
 	if (!targetObject) return null;
 	const [text, setText] = useState(targetObject?.text || "");
+	const textRef = useRef<HTMLDivElement | null>(null);
+	const [inputWidth, setInputWidth] = useState(30);
+	useEffect(() => {
+		// canvasを使ってテキストの幅を計算する
+		const calculateTextWidth = (text: string) => {
+			const canvas = document.createElement('canvas');
+			const context = canvas.getContext('2d');
+			if (context && textRef.current) {
+				const style = getComputedStyle(textRef.current);
+				context.font = `${style.fontSize} ${style.fontFamily}`;
+				return context.measureText(text).width;
+			}
+			return 30; // 初期の最小幅
+		};
+
+		const width = calculateTextWidth(text);
+		setInputWidth(width + 15); // 余白を加える
+	}, [text]);
 	useEffect(() => {
 		if (targetObject) {
 			setText(targetObject.text);
@@ -42,21 +60,23 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId,pdfTextInit }) => {
 		);
 	};
 	return (
-		<>
+		<Box sx={{width:'100x'}}>
 			<TextField
 				sx={{
 					position: 'absolute',
 					top: pdfTextInit.y,
 					left: pdfTextInit.x,
 					zIndex: 30,
-					width:'max-content'
+					width: `${inputWidth}px`,
+					minWidth:'80px'
 				}}
 				InputProps={{
 					style: {
 						color: 'black',
-						fontSize: pdfTextInit.fontSize,
-						fontWeight:pdfTextInit.fontWeight,
-						width:'max-content'
+				  	fontSize: pdfTextInit.fontSize,
+						fontWeight: pdfTextInit.fontWeight,
+						width: `${inputWidth}px`,
+						minWidth:'80px'
 					}
 				}}
 				onContextMenu={handleContextMenu}
@@ -67,6 +87,9 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId,pdfTextInit }) => {
 				fullWidth
 			/>
 			<PdfTextContextMenu anchorEl={anchorEl} handleClose={handleClose} />
-		</>
+			<Box ref={textRef} style={{ visibility: 'hidden', whiteSpace: 'nowrap', position: 'absolute' }}>
+				{text}
+			</Box>
+		</Box>
 	)
 }
