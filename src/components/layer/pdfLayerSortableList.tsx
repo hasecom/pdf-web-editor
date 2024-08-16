@@ -18,7 +18,7 @@ import { Box } from '@mui/material';
 import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
 
 const SortableList = () => {
-	const { pdfObject, setPdfObject } = usePdfObjectContext();
+	const { pdfObject, setPdfObject,selectedPdfObjectId,addSelectedPdfObjectId } = usePdfObjectContext();
 	const sensors = useSensors(
 		useSensor(MouseSensor, { activationConstraint: { distance: 10 } }),
 		useSensor(TouchSensor, { activationConstraint: { distance: 10 } })
@@ -53,7 +53,7 @@ const SortableList = () => {
 			<Box style={{ backgroundColor: '#333639', padding: '20px' }}>
 				<SortableContext items={pdfObject} strategy={verticalListSortingStrategy}>
 					{pdfObject.map((item) => (
-						<SortableItem key={item.id} item={item} />
+						<SortableItem key={item.id} item={item} selectedPdfObjectId={selectedPdfObjectId} addSelectedPdfObjectId={addSelectedPdfObjectId} />
 					))}
 				</SortableContext>
 			</Box>

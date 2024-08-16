@@ -9,7 +9,7 @@ type PdfTextProps = {
 	pdfTextInit: pdfTextLinkInitType
 }
 export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
-	const { pdfObject, setPdfObject } = usePdfObjectContext();
+	const { pdfObject, setPdfObject,selectedPdfObjectId,addSelectedPdfObjectId } = usePdfObjectContext();
 	const targetObject = pdfObject.find((obj) => obj.id === fileId);
 	if (!targetObject) return null;
 	const [text, setText] = useState(targetObject?.text || "");
@@ -64,11 +64,10 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 			<TextField
 				sx={{
 					position: 'absolute',
-					top: pdfTextInit.y,
-					left: pdfTextInit.x,
 					zIndex: 30,
 					width: `${inputWidth}px`,
-					minWidth:'80px'
+					minWidth:'80px',
+					border: fileId === selectedPdfObjectId ? '3px dashed blue' : '',
 				}}
 				InputProps={{
 					style: {
@@ -84,6 +83,7 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 				value={text}
 				placeholder="Enter text"
 				onChange={handleTextChange}
+				onMouseDown={() =>{addSelectedPdfObjectId(fileId)}}
 				fullWidth
 			/>
 			<PdfTextContextMenu anchorEl={anchorEl} handleClose={handleClose} />

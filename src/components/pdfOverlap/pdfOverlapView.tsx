@@ -51,7 +51,6 @@ const PdfOverlapView: NextPage<PdfOverlapViewProps> = ({ canvasSize }) => {
 			);
 		}
 	};
-
 	return (
 		<Box sx={{
 			width: canvasSize.width,
@@ -62,7 +61,7 @@ const PdfOverlapView: NextPage<PdfOverlapViewProps> = ({ canvasSize }) => {
 				onDragEnd={handleDragEnd}>
 				<DroppableArea id="droppable" canvasSize={canvasSize} />
 				{pdfObject.map((item: pdfWrapType, index: any) => (
-					<DraggableItem key={item.id} item={item} style={{ left: item.x, top: item.y }} />
+					<DraggableItem  key={item.id} item={item} style={{ left: item.x, top: item.y }} />
 				))}
 			</DndContext>
 		</Box>
@@ -78,7 +77,7 @@ const DraggableItem = ({ item, style }: { item: pdfTextLinkType, style: React.CS
 	const draggableStyle: React.CSSProperties = {
 		cursor: 'move',
 		width:'100px',
-		height: '100px',
+		height: '50px',
 		position: 'absolute',
 		transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
 		zIndex: 1000,

@@ -9,8 +9,10 @@ import { pdfWrapType } from '../pdfOverlap/pdfObjectLink';
 import { NextPage } from 'next';
 type SortableItemProps = {
   item: pdfWrapType
+	selectedPdfObjectId:number,
+	addSelectedPdfObjectId:(elementId:number)=>void
 }
-const SortableItem: NextPage<SortableItemProps> = ({ item }) => {
+const SortableItem: NextPage<SortableItemProps> = ({ item,selectedPdfObjectId,addSelectedPdfObjectId}) => {
   const {
     attributes,
     listeners,
@@ -25,8 +27,9 @@ const SortableItem: NextPage<SortableItemProps> = ({ item }) => {
     padding: '16px',
     border: '1px solid #ccc',
     marginBottom: '8px',
-    backgroundColor: 'white',
+    backgroundColor:item.id === selectedPdfObjectId ? 'red':'white',
     cursor: 'move',
+
   };
 
   return (
