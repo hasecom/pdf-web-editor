@@ -4,6 +4,8 @@ import usePdfObjectStatus from '@/hooks/usePdfObjectStatus';
 import { pdfWrapType,pdfTextLinkInitType } from '@/constant/pdfObjectConstant'
 import usePdfTextStatus from "@/hooks/usePdfTextStyle";
 import useSelectedPdfObject from '@/hooks/useSelectedPdfObject';
+import { settingStatusObject } from '@/constant/pdfObjectConstant';
+import useObjectSettingStatus from '@/hooks/useObjectSettingStatus';
 type ProviderProps = {
   children: ReactNode;
 };
@@ -14,7 +16,10 @@ interface ContextType{
 	setPdfObject:React.Dispatch<React.SetStateAction<pdfWrapType[]>>,
   pdfTextInit:pdfTextLinkInitType,
 	selectedPdfObjectId:number,
-	addSelectedPdfObjectId:(elementId:number)=>void
+	addSelectedPdfObjectId:(elementId:number)=>void,
+	objectSettingStatus:settingStatusObject[],
+	setObjectSettingStatus:React.Dispatch<React.SetStateAction<settingStatusObject[]>>,
+	addSettingStatus:(settingStatusObject:settingStatusObject)=>void,
 }
 
 const Context = createContext<ContextType | undefined>(undefined);
@@ -27,17 +32,20 @@ const Context = createContext<ContextType | undefined>(undefined);
  * @returns {*}
  */
 const PdfObjectProvider: React.FC<ProviderProps> = ({ children }) => {
-  const { pdfObject,addPdfObject,setPdfObject } = usePdfObjectStatus();
 	const {selectedPdfObjectId,addSelectedPdfObjectId} = useSelectedPdfObject();
+  const { pdfObject,addPdfObject,setPdfObject } = usePdfObjectStatus();
   const { pdfTextInit } = usePdfTextStatus();
+	const { objectSettingStatus,setObjectSettingStatus,addSettingStatus } = useObjectSettingStatus(pdfObject);
   const contextValue: ContextType = {
     pdfObject:pdfObject,
     addPdfObject:addPdfObject,
 		setPdfObject:setPdfObject,
     pdfTextInit:pdfTextInit,
 		selectedPdfObjectId:selectedPdfObjectId,
-		addSelectedPdfObjectId:addSelectedPdfObjectId
-
+		addSelectedPdfObjectId:addSelectedPdfObjectId,
+		objectSettingStatus:objectSettingStatus,
+		setObjectSettingStatus:setObjectSettingStatus,
+		addSettingStatus:addSettingStatus
   };
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };

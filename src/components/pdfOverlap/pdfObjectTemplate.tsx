@@ -9,7 +9,9 @@ type PdfTextProps = {
 	pdfTextInit: pdfTextLinkInitType
 }
 export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
-	const { pdfObject, setPdfObject,selectedPdfObjectId,addSelectedPdfObjectId } = usePdfObjectContext();
+	const { pdfObject, setPdfObject,selectedPdfObjectId,addSelectedPdfObjectId,objectSettingStatus } = usePdfObjectContext();
+	const currentSettingObject = objectSettingStatus.find(item => item.fieldId === fileId);
+
 	const targetObject = pdfObject.find((obj) => obj.id === fileId);
 	if (!targetObject) return null;
 	const [text, setText] = useState(targetObject?.text || "");
@@ -73,7 +75,8 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 					style: {
 						color: 'black',
 				  	fontSize: pdfTextInit.fontSize,
-						fontWeight: pdfTextInit.fontWeight,
+						font:'revert',
+						fontWeight: currentSettingObject?.fontBold ? 'bold':'normal',
 						width: `${inputWidth}px`,
 						minWidth:'80px'
 					}

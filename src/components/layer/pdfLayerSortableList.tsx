@@ -19,10 +19,6 @@ import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
 
 const SortableList = () => {
 	const { pdfObject, setPdfObject,selectedPdfObjectId,addSelectedPdfObjectId } = usePdfObjectContext();
-	const sensors = useSensors(
-		useSensor(MouseSensor, { activationConstraint: { distance: 10 } }),
-		useSensor(TouchSensor, { activationConstraint: { distance: 10 } })
-	);
 
 	const handleDragEnd = (event: any) => {
 		const { active, over } = event;
@@ -37,7 +33,6 @@ const SortableList = () => {
 				console.error('Invalid drag and drop indices');
 				return;
 			}
-
 			setPdfObject(prev => {
 				return arrayMove(prev, oldIndex, newIndex);
 			});
@@ -46,7 +41,6 @@ const SortableList = () => {
 
 	return (
 		<DndContext
-			sensors={sensors}
 			collisionDetection={closestCenter}
 			onDragEnd={handleDragEnd}
 		>

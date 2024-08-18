@@ -8,7 +8,6 @@ interface objectType {
 }
 export interface pdfTextLinkType extends objectType {
 	fontSize: number;
-	fontWeight: number | string;
 	x: number,
 	y: number,
 	text:string,
@@ -22,7 +21,6 @@ export const pdf_text_link = (): pdfTextLinkType => {
 		id: fileId,
 		class: pdfObjectClass.text,
 		fontSize: 0,
-		fontWeight: 0,
 		x: 0,
 		y: 0,
 		text:"a",

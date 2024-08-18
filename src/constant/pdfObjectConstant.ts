@@ -6,7 +6,6 @@ interface objectType {
 }
 export interface pdfTextLinkType extends objectType {
 	fontSize: number;
-	fontWeight: number | string;
 	x: number,
 	y: number,
 	text:string,
@@ -19,7 +18,6 @@ export type pdfTextLinkInitType = Omit<pdfTextLinkType, 'template' | 'id'>;
 export const pdfTextInitData:pdfTextLinkInitType = {
     class: '',
     fontSize:14,
-    fontWeight:'normal',
     x: 100,
     y: 100,
     text:"",
@@ -29,3 +27,15 @@ export const pdfObjectClass = {
 	text:'text'
 }
 
+/* useObjectSettingStatusで使用 */
+export type settingStatusObject = {
+	fieldId:number,
+	fontBold:boolean,
+	fontItalic:boolean,
+	fontUnderlined:boolean
+}
+export const settingStatusObjectInit = {
+	fontBold:false,
+	fontItalic:false,
+	fontUnderlined:false
+}
