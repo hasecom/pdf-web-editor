@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Box } from '@mui/material';
 import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
 import { Bold, Italic, Underlined } from '../editor/editorComponent';
+import ColorPickerButton from '../util/colorPicker';
 const EditorSelectionMenu = () => {
 	const { selectedPdfObjectId, objectSettingStatus, setObjectSettingStatus } = usePdfObjectContext();
 	const currentObject = objectSettingStatus.find(item => item.fieldId === selectedPdfObjectId);
@@ -31,11 +29,9 @@ const EditorSelectionMenu = () => {
 				<Bold currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
 				<Italic currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
 				<Underlined currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
-				<ToggleButton value="color" aria-label="color">
-					<FormatColorFillIcon />
-					<ArrowDropDownIcon />
-				</ToggleButton>
+				<ColorPickerButton currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
 			</ToggleButtonGroup>
+			
 		</Box>
 	);
 }

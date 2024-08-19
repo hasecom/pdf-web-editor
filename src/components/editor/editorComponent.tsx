@@ -4,12 +4,7 @@ import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import ToggleButton from '@mui/material/ToggleButton';
 import { settingStatusObject } from '@/constant/pdfObjectConstant';
 import { NextPage } from 'next';
-type edtitorProps = {
-	currentObject: settingStatusObject | undefined,
-	selectedPdfObjectId: number
-	setObjectSettingStatus: React.Dispatch<React.SetStateAction<settingStatusObject[]>>
-}
-
+import { edtitorProps } from '@/types/common';
 /**
  * PDFオブジェクトの太さを管理します。
  *
