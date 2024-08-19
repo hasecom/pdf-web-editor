@@ -70,15 +70,17 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 					width: `${inputWidth}px`,
 					minWidth:'80px',
 					border: fileId === selectedPdfObjectId ? '3px dashed blue' : '',
+					color: 'black',
+					fontSize: pdfTextInit.fontSize,
+					font:'revert',
+					fontFamily:'-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
 				}}
 				InputProps={{
+					disableUnderline: true,
 					style: {
-						color: 'black',
-				  	fontSize: pdfTextInit.fontSize,
-						font:'revert',
 						fontWeight: currentSettingObject?.fontBold ? 'bold':'normal',
-						width: `${inputWidth}px`,
-						minWidth:'80px'
+						textDecoration: currentSettingObject?.fontUnderlined ? 'underline':'',
+						fontStyle: currentSettingObject?.fontItalic ? 'italic' : 'normal',
 					}
 				}}
 				onContextMenu={handleContextMenu}

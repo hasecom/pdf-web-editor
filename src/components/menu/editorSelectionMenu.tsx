@@ -31,7 +31,7 @@ const EditorSelectionMenu = () => {
 				<Bold currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
 				<Italic currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
 				<Underlined currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
-				<ToggleButton value="color" aria-label="color" disabled>
+				<ToggleButton value="color" aria-label="color">
 					<FormatColorFillIcon />
 					<ArrowDropDownIcon />
 				</ToggleButton>

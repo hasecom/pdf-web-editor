@@ -29,7 +29,6 @@ const SortableItem: NextPage<SortableItemProps> = ({ item, selectedPdfObjectId, 
 		marginBottom: '8px',
 		backgroundColor: item.id === selectedPdfObjectId ? 'rgb(220,220,220)' : 'white',
 		cursor: 'move',
-
 	};
 
 	return (
