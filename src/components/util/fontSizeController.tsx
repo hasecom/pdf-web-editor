@@ -33,7 +33,7 @@ const FontSizeController: NextPage<edtitorProps> = ({ currentObject, selectedPdf
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newSize = parseInt(event.target.value, 10);
-		if (!isNaN(newSize) && newSize > 0) {
+		if (!isNaN(newSize) && (newSize > 0 && newSize <=60)) {
 			setFontSize(newSize);
 		}
 	};

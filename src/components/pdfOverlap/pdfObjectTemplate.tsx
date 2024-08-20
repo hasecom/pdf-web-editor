@@ -24,15 +24,14 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 			const context = canvas.getContext('2d');
 			if (context && textRef.current) {
 				const style = getComputedStyle(textRef.current);
-				context.font = `${style.fontSize} ${style.fontFamily}`;
+				context.font = `${currentSettingObject?.fontSize}px ${style.fontFamily}`;
 				return context.measureText(text).width;
 			}
 			return 30; // 初期の最小幅
 		};
-
 		const width = calculateTextWidth(text);
 		setInputWidth(width + 15); // 余白を加える
-	}, [text]);
+	}, [text,currentSettingObject?.fontSize]);
 	useEffect(() => {
 		if (targetObject) {
 			setText(targetObject.text);
