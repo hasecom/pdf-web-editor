@@ -15,7 +15,6 @@ const useObjectSettingStatus = (pdfObject: pdfTextLinkType[]) => {
 		if (pdfObject) {
 			pdfObject.forEach(obj => {
 				const exists = objectSettingStatus.some(setting => setting.fieldId === obj.id);
-				console.log(exists);
 				if(!exists){
 					addSettingStatus({
             ...settingStatusObjectInit,

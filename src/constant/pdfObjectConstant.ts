@@ -32,10 +32,14 @@ export type settingStatusObject = {
 	fieldId:number,
 	fontBold:boolean,
 	fontItalic:boolean,
-	fontUnderlined:boolean
+	fontUnderlined:boolean,
+	fontColor:string,
+	fontSize:number
 }
 export const settingStatusObjectInit = {
 	fontBold:false,
 	fontItalic:false,
-	fontUnderlined:false
+	fontUnderlined:false,
+	fontColor:'#000000',
+	fontSize:16
 }

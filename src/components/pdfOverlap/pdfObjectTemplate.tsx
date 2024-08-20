@@ -9,7 +9,7 @@ type PdfTextProps = {
 	pdfTextInit: pdfTextLinkInitType
 }
 export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
-	const { pdfObject, setPdfObject,selectedPdfObjectId,addSelectedPdfObjectId,objectSettingStatus } = usePdfObjectContext();
+	const { pdfObject, setPdfObject, selectedPdfObjectId, addSelectedPdfObjectId, objectSettingStatus } = usePdfObjectContext();
 	const currentSettingObject = objectSettingStatus.find(item => item.fieldId === fileId);
 
 	const targetObject = pdfObject.find((obj) => obj.id === fileId);
@@ -62,25 +62,26 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 		);
 	};
 	return (
-		<Box sx={{width:'100x'}}>
+		<Box sx={{ width: '100x' }}>
 			<TextField
 				sx={{
 					position: 'absolute',
 					zIndex: 30,
 					width: `${inputWidth}px`,
-					minWidth:'80px',
+					minWidth: '80px',
 					border: fileId === selectedPdfObjectId ? '3px dashed blue' : '',
 					color: 'black',
-					fontSize: pdfTextInit.fontSize,
-					font:'revert',
-					fontFamily:'-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+					font: 'revert',
+					fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
 				}}
 				InputProps={{
 					disableUnderline: true,
 					style: {
-						fontWeight: currentSettingObject?.fontBold ? 'bold':'normal',
-						textDecoration: currentSettingObject?.fontUnderlined ? 'underline':'',
+						fontSize: currentSettingObject?.fontSize + 'px',
+						fontWeight: currentSettingObject?.fontBold ? 'bold' : 'normal',
+						textDecoration: currentSettingObject?.fontUnderlined ? 'underline' : '',
 						fontStyle: currentSettingObject?.fontItalic ? 'italic' : 'normal',
+						color: currentSettingObject?.fontColor
 					}
 				}}
 				onContextMenu={handleContextMenu}
@@ -88,7 +89,7 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 				value={text}
 				placeholder="Enter text"
 				onChange={handleTextChange}
-				onMouseDown={() =>{addSelectedPdfObjectId(fileId)}}
+				onMouseDown={() => { addSelectedPdfObjectId(fileId) }}
 				fullWidth
 			/>
 			<PdfTextContextMenu anchorEl={anchorEl} handleClose={handleClose} />

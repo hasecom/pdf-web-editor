@@ -23,7 +23,7 @@ export const pdf_text_link = (): pdfTextLinkType => {
 		fontSize: 0,
 		x: 0,
 		y: 0,
-		text:"a",
+		text:"",
 		template: <PdfText fileId={fileId} pdfTextInit={pdfTextInitData} />
 	}
 };
