@@ -7,6 +7,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { Box } from '@mui/material';
 import { pdfWrapType } from '../pdfOverlap/pdfObjectLink';
 import { NextPage } from 'next';
+import DescriptionIcon from '@mui/icons-material/Description';
 type SortableItemProps = {
 	item: pdfWrapType
 	selectedPdfObjectId: number,
@@ -32,8 +33,9 @@ const SortableItem: NextPage<SortableItemProps> = ({ item, selectedPdfObjectId, 
 	};
 
 	return (
-		<Box ref={setNodeRef} style={style} {...attributes} {...listeners} onMouseDown={() =>{addSelectedPdfObjectId(item.id)}} >
-			{item.class}:{item.text}
+		<Box ref={setNodeRef} style={style} {...attributes} {...listeners} onMouseDown={() =>{addSelectedPdfObjectId(item.id)}}   display="flex"
+		alignItems="center">
+			<DescriptionIcon /> {item.text}
 		</Box>
 	);
 };
