@@ -6,7 +6,8 @@ import { Bold, Italic, Underlined } from '../editor/editorComponent';
 import ColorPickerButton from '../util/colorPicker';
 import { edtitorProps } from '@/types/common';
 import { NextPage } from 'next';
-
+import { FormatColorFill as FormatColorFillIcon } from '@mui/icons-material';
+import FormatColorTextIcon from '@mui/icons-material/FormatColorText';
 const EditorSelectionMenu: NextPage<edtitorProps> = ({ currentObject, selectedPdfObjectId, setObjectSettingStatus }) => {
 
 	const [formats, setFormats] = useState(() => ['']);
@@ -31,7 +32,8 @@ const EditorSelectionMenu: NextPage<edtitorProps> = ({ currentObject, selectedPd
 					<Bold currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
 					<Italic currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
 					<Underlined currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
-					<ColorPickerButton currentObject={currentObject} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
+					<ColorPickerButton Icon={FormatColorTextIcon} targetStyle={"fontColor"} initColor={'#000000'} target={currentObject?.fontColor} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
+					<ColorPickerButton Icon={FormatColorFillIcon} targetStyle={"backgroundColor"} initColor={'transparent'} target={currentObject?.backgroundColor} selectedPdfObjectId={selectedPdfObjectId} setObjectSettingStatus={setObjectSettingStatus} />
 				</ToggleButtonGroup>
 			</Box>
 		</>

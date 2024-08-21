@@ -34,12 +34,14 @@ export type settingStatusObject = {
 	fontItalic:boolean,
 	fontUnderlined:boolean,
 	fontColor:string,
-	fontSize:number
+	fontSize:number,
+	backgroundColor:string
 }
 export const settingStatusObjectInit = {
 	fontBold:false,
 	fontItalic:false,
 	fontUnderlined:false,
 	fontColor:'#000000',
-	fontSize:16
+	fontSize:16,
+	backgroundColor:'transparent'
 }

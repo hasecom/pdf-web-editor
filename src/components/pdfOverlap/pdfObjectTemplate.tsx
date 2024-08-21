@@ -80,7 +80,8 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 						fontWeight: currentSettingObject?.fontBold ? 'bold' : 'normal',
 						textDecoration: currentSettingObject?.fontUnderlined ? 'underline' : '',
 						fontStyle: currentSettingObject?.fontItalic ? 'italic' : 'normal',
-						color: currentSettingObject?.fontColor
+						color: currentSettingObject?.fontColor,
+						background:currentSettingObject?.backgroundColor
 					}
 				}}
 				onContextMenu={handleContextMenu}
