@@ -35,7 +35,6 @@ const PdfViewer = () => {
 	}, [pdfJsObject]);
 
 	const handleDownload = async () => {
-		console.log(objectSettingStatus)
 		// PDF を編集する
 		const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
 		const pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -45,17 +44,11 @@ const PdfViewer = () => {
 		pdfObject.forEach(obj => {
       if (obj.class === 'text') {
 				const style = objectSettingStatus.find(style => style.fieldId === obj.id);
+				console.log(obj)
         firstPage.drawText(obj.text, {
           x: obj.x,
           y: obj.y,
 					size: style?.fontSize,
-					color: style?.fontColor /* TODO: */
-					? rgb(
-							parseInt(style.fontColor.slice(1, 3), 16) / 255,
-							parseInt(style.fontColor.slice(3, 5), 16) / 255,
-							parseInt(style.fontColor.slice(5, 7), 16) / 255
-						)
-					: rgb(0, 0, 0),
         });
       }
     });

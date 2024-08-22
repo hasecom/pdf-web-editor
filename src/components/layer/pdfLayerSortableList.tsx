@@ -18,9 +18,10 @@ import { Box } from '@mui/material';
 import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
 
 const SortableList = () => {
-	const { pdfObject, setPdfObject,selectedPdfObjectId,addSelectedPdfObjectId } = usePdfObjectContext();
+	const { pdfObject, setPdfObject,selectedPdfObjectId,addSelectedPdfObjectId,objectSettingStatus } = usePdfObjectContext();
 
 	const handleDragEnd = (event: any) => {
+		console.log(objectSettingStatus)
 		const { active, over } = event;
 		if (active.id !== over.id) {
 			const activeId = active.id;
