@@ -4,10 +4,11 @@ import {
 	useSortable
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Box } from '@mui/material';
-import { pdfWrapType } from '../pdfOverlap/pdfObjectLink';
+import { Box, Typography } from '@mui/material';
+
 import { NextPage } from 'next';
-import DescriptionIcon from '@mui/icons-material/Description';
+import { pdfWrapType } from '@/constant/pdfObjectConstant';
+
 type SortableItemProps = {
 	item: pdfWrapType
 	selectedPdfObjectId: number,
@@ -22,6 +23,11 @@ const SortableItem: NextPage<SortableItemProps> = ({ item, selectedPdfObjectId, 
 		transition,
 	} = useSortable({ id: item.id });
 
+	const maxLength = 15;
+	const trimmedText = item.text.length > maxLength
+		? `${item.text.substring(0, maxLength)}...`
+		: item.text;
+
 	const style = {
 		transform: CSS.Transform.toString(transform),
 		transition,
@@ -33,9 +39,14 @@ const SortableItem: NextPage<SortableItemProps> = ({ item, selectedPdfObjectId, 
 	};
 
 	return (
-		<Box ref={setNodeRef} style={style} {...attributes} {...listeners} onMouseDown={() =>{addSelectedPdfObjectId(item.id)}}   display="flex"
-		alignItems="center">
-			<DescriptionIcon /> {item.text}
+		<Box ref={setNodeRef} style={style} {...attributes} {...listeners} onMouseDown={() => { addSelectedPdfObjectId(item.id) }} display="flex"
+			alignItems="center">
+			{item.Icon &&
+				<item.Icon />
+			}
+			<Typography sx={{ paddingX: 2 }}>
+				{trimmedText}
+			</Typography>
 		</Box>
 	);
 };

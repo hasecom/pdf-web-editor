@@ -22,7 +22,6 @@ const PdfLayerMenu = () => {
 					alignItems: 'left'
 				}}
 			>
-
 				<Button
 					variant="contained"
 					color="primary"

@@ -1,29 +1,17 @@
-import { ReactNode, useState } from "react";
 import { PdfText } from "./pdfObjectTemplate";
-import { pdfObjectClass,pdfTextInitData } from "@/constant/pdfObjectConstant";
+import { pdfObjectClass,pdfTextInitData, pdfTextLinkType } from "@/constant/pdfObjectConstant";
+import TextFields from '@mui/icons-material/TextFields';
 
-interface objectType {
-	id: number;
-	class: string;
-}
-export interface pdfTextLinkType extends objectType {
-	fontSize: number;
-	x: number,
-	y: number,
-	text:string,
-	template: ReactNode;
-}
-export type pdfWrapType = pdfTextLinkType;
 
 export const pdf_text_link = (): pdfTextLinkType => {
 	const fileId = Date.now();
 	return {
 		id: fileId,
 		class: pdfObjectClass.text,
-		fontSize: 0,
 		x: 0,
 		y: 0,
 		text:"",
+		Icon:TextFields,
 		template: <PdfText fileId={fileId} pdfTextInit={pdfTextInitData} />
 	}
 };

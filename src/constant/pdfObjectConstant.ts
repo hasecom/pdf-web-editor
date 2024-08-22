@@ -1,3 +1,4 @@
+import { SvgIconProps } from "@mui/material";
 import { ReactNode } from "react";
 
 interface objectType {
@@ -5,11 +6,11 @@ interface objectType {
 	class: string;
 }
 export interface pdfTextLinkType extends objectType {
-	fontSize: number;
-	x: number,
-	y: number,
-	text:string,
+	x: number;
+	y: number;
+	text:string;
 	template: ReactNode;
+	Icon:React.ElementType<SvgIconProps> | null
 }
 export type pdfWrapType = pdfTextLinkType;
 
@@ -17,10 +18,10 @@ export type pdfTextLinkInitType = Omit<pdfTextLinkType, 'template' | 'id'>;
 
 export const pdfTextInitData:pdfTextLinkInitType = {
     class: '',
-    fontSize:14,
     x: 100,
     y: 100,
     text:"",
+		Icon:null
 }
 
 export const pdfObjectClass = {
