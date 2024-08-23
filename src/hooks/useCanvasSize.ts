@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { PDFDocument } from 'pdf-lib';
 import usePdf from './usePdfObject';
 
-interface CanvasSize {
+export interface CanvasSize {
 	width: number;
 	height: number;
 }

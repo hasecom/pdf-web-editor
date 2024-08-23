@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Document, Page } from 'react-pdf';
 import { Box, Button } from '@mui/material';
 import PdfController from './pdfController';
@@ -7,10 +7,10 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import { usePdfControllerContext } from '@/provider/pdfControllerProvider';
 import PdfOverlapView from '../pdfOverlap/pdfOverlapView';
-import { PDFDocument, rgb } from 'pdf-lib'; /* XXX */
 import usePdf from '@/hooks/usePdfObject';
 import useCanvasSize from '@/hooks/useCanvasSize';
 import { usePdfObjectContext } from '@/provider/pdfObjectProvider';
+import mergePdfObject from './mergePdfObject';
 const PdfViewer = () => {
 	const { pageNumber, scale, handlePageLength } = usePdfControllerContext();
 	const { pdfJsObject } = usePdf();
@@ -35,28 +35,7 @@ const PdfViewer = () => {
 	}, [pdfJsObject]);
 
 	const handleDownload = async () => {
-		// PDF を編集する
-		const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
-		const pdfDoc = await PDFDocument.load(existingPdfBytes);
-		const pages = pdfDoc.getPages();
-		const firstPage = pages[0];
-
-		pdfObject.forEach(obj => {
-      if (obj.class === 'text') {
-				const style = objectSettingStatus.find(style => style.fieldId === obj.id);
-				console.log(obj)
-        firstPage.drawText(obj.text, {
-          x: obj.x,
-          y: obj.y,
-					size: style?.fontSize,
-        });
-      }
-    });
-
-		const pdfBytes = await pdfDoc.save();
-		const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-		const editedUrl = URL.createObjectURL(blob);
-
+		const editedUrl  = await mergePdfObject({url,pdfObject,objectSettingStatus,canvasSize});
 		// 動的にダウンロード URL を設定
 		setDownloadUrl(editedUrl);
 	};
