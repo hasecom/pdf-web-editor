@@ -14,9 +14,16 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 
 	const targetObject = pdfObject.find((obj) => obj.id === fileId);
 	if (!targetObject) return null;
+	const textFieldRef = useRef<HTMLDivElement | null>(null);
 	const [text, setText] = useState(targetObject?.text || "");
 	const textRef = useRef<HTMLDivElement | null>(null);
-	const [inputWidth, setInputWidth] = useState(30);
+	const [inputWidth, setInputWidth] = useState<number>(30);
+	const [inputHeight, setHeight] = useState<number>(0);
+	useEffect(() => {
+    if (textFieldRef.current) {
+      setHeight(textFieldRef.current.offsetHeight);
+    }
+  }, []);
 	useEffect(() => {
 		// canvasを使ってテキストの幅を計算する
 		const calculateTextWidth = (text: string) => {
@@ -56,19 +63,21 @@ export const PdfText: NextPage<PdfTextProps> = ({ fileId, pdfTextInit }) => {
 		const newText = e.target.value;
 		setPdfObject((prevPdfObject) =>
 			prevPdfObject.map((obj) =>
-				obj.id === fileId ? { ...obj, text: newText } : obj
+				obj.id === fileId ? { ...obj, text: newText,width:inputWidth,height:inputHeight } 
+		    : obj
 			)
 		);
 	};
 	return (
 		<Box sx={{ width: '100x' }}>
 			<TextField
+			  ref={textFieldRef}
 				sx={{
 					position: 'absolute',
 					zIndex: 30,
 					width: `${inputWidth}px`,
 					minWidth: '80px',
-					border: fileId === selectedPdfObjectId ? '3px dashed blue' : '',
+					border: fileId === selectedPdfObjectId ? '3px dashed blue' : '3px solid transparent',
 					color: 'black',
 					font: 'revert',
 					fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'

@@ -47,6 +47,15 @@ const PdfViewer = () => {
 			height: '100%',
 			overflow: 'auto',
 		}}>
+			<Button
+				variant="contained"
+				color="primary"
+				onClick={handleDownload}
+				href={downloadUrl}
+				download="edited.pdf"
+			>
+				Download Edited PDF
+			</Button>
 			<PdfController />
 			<Box sx={{
 				padding: 2,
@@ -63,16 +72,6 @@ const PdfViewer = () => {
 					</Page>
 				</Document>
 			</Box>
-
-			<Button
-				variant="contained"
-				color="primary"
-				onClick={handleDownload}
-				href={downloadUrl}
-				download="edited.pdf"
-			>
-				Download Edited PDF
-			</Button>
 		</Box>
 
 	);

@@ -10,6 +10,8 @@ export interface pdfTextLinkType extends objectType {
 	y: number;
 	text:string;
 	template: ReactNode;
+	width:number,
+	height:number,
 	Icon:React.ElementType<SvgIconProps> | null
 }
 export type pdfWrapType = pdfTextLinkType;
@@ -18,8 +20,10 @@ export type pdfTextLinkInitType = Omit<pdfTextLinkType, 'template' | 'id'>;
 
 export const pdfTextInitData:pdfTextLinkInitType = {
     class: '',
-    x: 100,
-    y: 100,
+    x: 0,
+    y: 0,
+		width: 0,
+    height: 0,
     text:"",
 		Icon:null
 }
